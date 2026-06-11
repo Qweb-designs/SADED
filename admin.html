@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>لوحة التحكم - سديد | SADED Admin Dashboard</title>
+    
+    <!-- Same Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Admin-specific styles -->
+    <style>
+        /* Admin Dashboard Override Styles */
+        .admin-body {
+            background: var(--bg-primary);
+            min-height: 100vh;
+        }
+        
+        /* Login Overlay */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 29, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(20px);
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .login-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .login-modal {
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .login-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .admin-input-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+        
+        .admin-input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--font-arabic);
+            transition: all var(--transition-base);
+        }
+        
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-gradient);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: 1rem;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow-teal);
+        }
+        
+        .login-error {
+            color: var(--danger);
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: none;
+            padding: 2rem;
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
+        
+        .dashboard-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .admin-header {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .admin-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .logout-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-base);
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-btn:hover {
+            background: var(--bg-surface-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all var(--transition-base);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-teal);
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-teal);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Admin Grid */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .admin-panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+        
+        .panel-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        /* Inbox Table */
+        .inbox-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+        }
+        
+        .inbox-table thead,
+        .inbox-table tbody {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        .inbox-table th,
+        .inbox-table td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .inbox-table th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(6, 182, 212, 0.05);
+        }
+        
+        .inbox-table tbody tr {
+            transition: background var(--transition-fast);
+        }
+        
+        .inbox-table tbody tr:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+        
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-base);
+        }
+        
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            transform: scale(1.2);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        /* Publisher Form */
+        .publisher-form {
+            margin-bottom: 2rem;
+        }
+        
+        .publisher-form .admin-input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .publish-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--success);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        
+        .publish-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Projects List */
+        .projects-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .project-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-base);
+        }
+        
+        .project-item:hover {
+            border-color: var(--accent-teal);
+            background: var(--bg-surface-hover);
+        }
+        
+        .project-info h4 {
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+        
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .project-delete {
+            background: rgba(239, 68, 68, 0.1);
+            border: none;
+            color: var(--danger);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-size: 0.85rem;
+        }
+        
+        .project-delete:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            color: var(--text-primary);
+            z-index: 10001;
+            animation: toastIn 0.3s ease-out;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .toast.success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .toast.error {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+        
+        .message-preview {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        .message-preview:hover {
+            color: var(--accent-teal);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .admin-header {
+                padding: 1rem;
+            }
+            
+            .admin-title {
+                font-size: 1.2rem;
+            }
+            
+            .inbox-table {
+                font-size: 0.85rem;
+            }
+            
+            .inbox-table th,
+            .inbox-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="admin-body">
+    <!-- Background Mesh -->
+    <div class="background-mesh">
+        <div class="mesh-gradient mesh-1"></div>
+        <div class="mesh-gradient mesh-2"></div>
+        <div class="mesh-gradient mesh-3"></div>
+    </div>
+
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-modal">
+            <span class="login-logo">🔐</span>
+            <h1 class="login-title">لوحة التحكم</h1>
+            <p class="login-subtitle">سديد للخدمات الإلكترونية - SADED Admin</p>
+            
+            <div class="admin-input-group">
+                <label for="username">اسم المستخدم</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="admin-input" 
+                    placeholder="أدخل اسم المستخدم"
+                    autocomplete="username"
+                >
+            </div>
+            
+            <div class="admin-input-group">
+                <label for="password">كلمة المرور</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="admin-input" 
+                    placeholder="أدخل كلمة المرور"
+                    autocomplete="current-password"
+                >
+            </div>
+            
+            <button class="login-btn" id="loginBtn" onclick="handleLogin()">
+                <i class="fas fa-lock-open"></i>
+                دخول لوحة التحكم
+            </button>
+            
+            <p class="login-error" id="loginError">بيانات الدخول غير صحيحة. يرجى المحاولة مرة أخرى</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container" id="dashboardContainer">
+        <!-- Admin Header -->
+        <div class="admin-header">
+            <h1 class="admin-title">
+                <i class="fas fa-shield-haltered"></i>
+                لوحة تحكم سديد | SADED Dashboard
+            </h1>
+            <div class="admin-actions">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للموقع
+                </a>
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل الخروج
+                </button>
+            </div>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="stat-value" id="totalMessages">0</div>
+                <div class="stat-label">إجمالي الرسائل المستلمة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <div class="stat-value" id="activeProjects">0</div>
+                <div class="stat-label">المشاريع النشطة</div>
+            </div>
+        </div>
+        
+        <!-- Admin Grid -->
+        <div class="admin-grid">
+            <!-- Inbox Manager -->
+            <div class="admin-panel">
+                <h2 class="panel-title">
+                    <i class="fas fa-inbox"></i>
+                    إدارة الرسائل الواردة
+                </h2>
+                
+                <div style="overflow-x: auto;">
+                    <table class="inbox-table" id="inboxTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">اسم العميل</th>
+                                <th style="width: 25%;">البريد الإلكتروني</th>
+                                <th style="width: 35%;">تفاصيل المشروع</th>
+                                <th style="width: 20%;">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inboxTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="empty-state" id="emptyInbox">
+                    <i class="fas fa-inbox"></i>
+                    <p>لا توجد رسائل حالياً</p>
+                </div>
+            </div>
+            
+            <!-- Portfolio Publisher -->
+            <div class="admin-panel">
+                <h2 class="panel-title">
+                    <i class="fas fa-plus-circle"></i>
+                    إضافة مشروع جديد
+                </h2>
+                
+                <div class="publisher-form">
+                    <div class="admin-input-group">
+                        <label for="projectTitleAR">عنوان المشروع (عربي)</label>
+                        <input 
+                            type="text" 
+                            id="projectTitleAR" 
+                            class="admin-input" 
+                            placeholder="أدخل عنوان المشروع بالعربية"
+                        >
+                    </div>
+                    
+                    <div class="admin-input-group">
+                        <label for="projectTitleEN">Project Title (English)</label>
+                        <input 
+                            type="text" 
+                            id="projectTitleEN" 
+                            class="admin-input" 
+                            placeholder="Enter project title in English"
+                        >
+                    </div>
+                    
+                    <div class="admin-input-group">
+                        <label for="projectDescAR">وصف المشروع (عربي)</label>
+                        <textarea 
+                            id="projectDescAR" 
+                            class="admin-input" 
+                            rows="3" 
+                            placeholder="أدخل وصف المشروع بالعربية"
+                        ></textarea>
+                    </div>
+                    
+                    <div class="admin-input-group">
+                        <label for="projectDescEN">Project Description (English)</label>
+                        <textarea 
+                            id="projectDescEN" 
+                            class="admin-input" 
+                            rows="3" 
+                            placeholder="Enter project description in English"
+                        ></textarea>
+                    </div>
+                    
+                    <button class="publish-btn" onclick="publishProject()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        نشر المشروع
+                    </button>
+                </div>
+                
+                <h3 style="margin: 1.5rem 0 1rem; color: var(--text-secondary);">
+                    المشاريع المنشورة
+                </h3>
+                
+                <div class="projects-list" id="projectsList">
+                    <!-- Dynamic content -->
+                </div>
+                
+                <div class="empty-state" id="emptyProjects" style="padding: 2rem;">
+                    <i class="fas fa-folder-open"></i>
+                    <p>لا توجد مشاريع مضافة بعد</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
