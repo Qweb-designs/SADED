@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سديد للخدمات الإلكترونية - خدمات تطوير الويب والبرمجة والتصميم الاحترافي">
+    <title>سديد للخدمات الإلكترونية | SADED Electronic Services</title>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+</head>
+<body>
+    <!-- Background Mesh -->
+    <div class="background-mesh">
+        <div class="mesh-gradient mesh-1"></div>
+        <div class="mesh-gradient mesh-2"></div>
+        <div class="mesh-gradient mesh-3"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <div class="logo-box">S</div>
+                <span class="brand-text" data-lang-key="brandName">سديد / SADED</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link" data-lang-key="navHome">الرئيسية</a></li>
+                <li><a href="#services" class="nav-link" data-lang-key="navServices">الخدمات</a></li>
+                <li><a href="#pricing" class="nav-link" data-lang-key="navPricing">الأسعار</a></li>
+                <li><a href="#portfolio" class="nav-link" data-lang-key="navPortfolio">معرض الأعمال</a></li>
+                <li><a href="#contact" class="nav-link" data-lang-key="navContact">اتصل بنا</a></li>
+            </ul>
+            
+            <button class="lang-toggle" id="langToggle" aria-label="تبديل اللغة">
+                <span data-lang-key="langLabel">EN</span>
+                <i class="fas fa-globe"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title" data-lang-key="heroTitle">
+                نبني حلولاً رقمية<br>تدفع أعمالك للمستقبل
+            </h1>
+            <p class="hero-subtitle" data-lang-key="heroSubtitle">
+                وكالة تقنية متكاملة تقدم خدمات تطوير الويب والتطبيقات والتصميم الإبداعي بأعلى معايير الجودة والاحترافية
+            </p>
+            <a href="#contact" class="cta-button">
+                <span data-lang-key="ctaButton">ابدأ مشروعك الآن</span>
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">+50</div>
+                    <div class="stat-label" data-lang-key="statProjects">مشروع مكتمل</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+30</div>
+                    <div class="stat-label" data-lang-key="statClients">عميل سعيد</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label" data-lang-key="statSupport">دعم فني</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-lang-key="servicesTitle">خدماتنا المتكاملة</h2>
+                <p class="section-subtitle" data-lang-key="servicesSubtitle">نقدم حلولاً تقنية شاملة تلبي احتياجات عملك المتكاملة</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service 1: Web & App Development -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title" data-lang-key="service1Title">تطوير الويب والتطبيقات</h3>
+                    <p class="service-description" data-lang-key="service1Desc">
+                        نبني تطبيقات ويب متكاملة باستخدام أحدث التقنيات مع تركيز على الأداء العالي وتجربة المستخدم المتميزة
+                    </p>
+                    <ul class="service-features">
+                        <li data-lang-key="service1Feature1">مواقع متجاوبة مع جميع الأجهزة</li>
+                        <li data-lang-key="service1Feature2">تطبيقات Full-Stack احترافية</li>
+                        <li data-lang-key="service1Feature3">قواعد بيانات آمنة ومتكاملة</li>
+                        <li data-lang-key="service1Feature4">بوابات دفع إلكتروني</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 2: Branding & Logo Design -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="service-title" data-lang-key="service2Title">تصميم الهوية والعلامات التجارية</h3>
+                    <p class="service-description" data-lang-key="service2Desc">
+                        نصمم هوية بصرية متكاملة تعكس قيم علامتك التجارية وتجذب جمهورك المستهدف
+                    </p>
+                    <ul class="service-features">
+                        <li data-lang-key="service2Feature1">تصميم شعار احترافي</li>
+                        <li data-lang-key="service2Feature2">الهوية البصرية الكاملة</li>
+                        <li data-lang-key="service2Feature3">المطبوعات التجارية</li>
+                        <li data-lang-key="service2Feature4">أدلة استخدام العلامة</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 3: UI/UX Design -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="service-title" data-lang-key="service3Title">تصميم واجهات وتجربة المستخدم</h3>
+                    <p class="service-description" data-lang-key="service3Desc">
+                        نصمم واجهات مستخدم عصرية وتجارب استخدام سلسة تركز على سهولة التفاعل وجمالية التصميم
+                    </p>
+                    <ul class="service-features">
+                        <li data-lang-key="service3Feature1">تصميم واجهات تفاعلية</li>
+                        <li data-lang-key="service3Feature2">تجربة مستخدم محسّنة</li>
+                        <li data-lang-key="service3Feature3">نماذج أولية تفاعلية</li>
+                        <li data-lang-key="service3Feature4">اختبارات قابلية الاستخدام</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-lang-key="pricingTitle">باقات الأسعار</h2>
+                <p class="section-subtitle" data-lang-key="pricingSubtitle">اختر الباقة المناسبة لمشروعك وابدأ رحلة التحول الرقمي</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <h3 class="plan-name" data-lang-key="planBasic">الباقة الأساسية</h3>
+                    <p class="plan-subtitle" data-lang-key="planBasicSub">Startup</p>
+                    <div class="price">
+                        <span class="price-currency">JOD</span>
+                        <span class="price-amount">150</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="feature-check">✓</span> <span data-lang-key="basicFeature1">صفحة هبوط مخصصة</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="basicFeature2">تصميم هوية أساسي</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="basicFeature3">لغة واحدة</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="basicFeature4">دعم فني لمدة شهر</span></li>
+                    </ul>
+                    <a href="#contact" class="plan-cta" data-lang-key="planCTA">ابدأ الآن</a>
+                </div>
+                
+                <!-- Professional Plan (Featured) -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge" data-lang-key="popularBadge">الأكثر طلباً</div>
+                    <h3 class="plan-name" data-lang-key="planPro">الباقة الاحترافية</h3>
+                    <p class="plan-subtitle" data-lang-key="planProSub">Business</p>
+                    <div class="price">
+                        <span class="price-currency">JOD</span>
+                        <span class="price-amount">350</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="feature-check">✓</span> <span data-lang-key="proFeature1">موقع متعدد الصفحات</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="proFeature2">نظام إدارة محتوى CMS</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="proFeature3">دعم لغتين كامل</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="proFeature4">تصميم متجاوب كامل</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="proFeature5">دعم فني 3 أشهر</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="proFeature6">تحسين محركات البحث</span></li>
+                    </ul>
+                    <a href="#contact" class="plan-cta" data-lang-key="planCTA">ابدأ الآن</a>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <h3 class="plan-name" data-lang-key="planEnterprise">الباقة المتقدمة</h3>
+                    <p class="plan-subtitle" data-lang-key="planEnterpriseSub">Advanced</p>
+                    <div class="price">
+                        <span class="price-amount" data-lang-key="customPrice">سعر مخصص</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="feature-check">✓</span> <span data-lang-key="enterpriseFeature1">تطبيقات Full-Stack</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="enterpriseFeature2">قواعد بيانات آمنة</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="enterpriseFeature3">بوابات دفع متكاملة</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="enterpriseFeature4">حلول سحابية متقدمة</span></li>
+                        <li><span class="feature-check">✓</span> <span data-lang-key="enterpriseFeature5">دعم فني 24/7</span></li>
+                    </ul>
+                    <a href="#contact" class="plan-cta" data-lang-key="planCTA">تواصل معنا</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-lang-key="portfolioTitle">معرض أعمالنا</h2>
+                <p class="section-subtitle" data-lang-key="portfolioSubtitle">نفتخر بمشاريعنا التي تعكس خبرتنا وجودتنا العالية</p>
+            </div>
+            
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Static Featured Project -->
+                <div class="portfolio-item featured-project">
+                    <div class="portfolio-image">
+                        <div class="portfolio-image-placeholder">
+                            <i class="fas fa-gem" style="font-size: 4rem;"></i>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title" data-lang-key="featuredProjectTitle">هوية سديد البصرية</h3>
+                        <p class="portfolio-description" data-lang-key="featuredProjectDesc">
+                            تصميم الهوية الكاملة لوكالة سديد للخدمات الإلكترونية، بما في ذلك الشعار، الألوان، والخطوط
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Dynamic Projects Container -->
+                <div id="dynamicPortfolio"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-lang-key="contactTitle">تواصل معنا</h2>
+                <p class="section-subtitle" data-lang-key="contactSubtitle">نحن هنا للإجابة على استفساراتكم وبدء مشروعكم الجديد</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3 data-lang-key="contactInfoTitle">معلومات التواصل</h3>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@saded-tech.com</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <span>+962 7 XXXX XXXX</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-lang-key="contactLocation">عمّان، الأردن</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="clientName" data-lang-key="formName">اسم العميل</label>
+                        <input 
+                            type="text" 
+                            id="clientName" 
+                            class="form-input" 
+                            required 
+                            placeholder="أدخل اسمك الكامل"
+                            data-lang-key-placeholder="formNamePlaceholder"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail" data-lang-key="formEmail">البريد الإلكتروني</label>
+                        <input 
+                            type="email" 
+                            id="clientEmail" 
+                            class="form-input" 
+                            required 
+                            placeholder="example@domain.com"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDetails" data-lang-key="formMessage">تفاصيل المشروع</label>
+                        <textarea 
+                            id="projectDetails" 
+                            class="form-input" 
+                            rows="5" 
+                            required 
+                            placeholder="صف مشروعك بالتفصيل..."
+                            data-lang-key-placeholder="formMessagePlaceholder"
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" data-lang-key="formSubmit">
+                        إرسال الطلب
+                    </button>
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i>
+                        <span data-lang-key="successMessage">تم إرسال طلبك بنجاح! سنتواصل معك قريباً</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand" data-lang-key="brandName">سديد / SADED</div>
+            <p data-lang-key="footerText">جميع الحقوق محفوظة © 2024 سديد للخدمات الإلكترونية</p>
+            <div class="footer-links">
+                <a href="#home" class="footer-link" data-lang-key="navHome">الرئيسية</a>
+                <a href="#services" class="footer-link" data-lang-key="navServices">الخدمات</a>
+                <a href="#pricing" class="footer-link" data-lang-key="navPricing">الأسعار</a>
+                <a href="admin.html" class="footer-link">Admin Panel</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
